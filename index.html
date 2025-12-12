@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart EduBoard - 专为新时代教与学打造的智能白板</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React & ReactDOM -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    
+    <!-- Babel -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            blue: '#2563eb', // 主色调
+                            dark: '#1e3a8a',
+                            light: '#eff6ff',
+                        },
+                        accent: {
+                            orange: '#f97316', // 活力/重点
+                            green: '#10b981',  // 生机/资源
+                            paleGreen: '#ecfccb', // 背景装饰
+                            purple: '#8b5cf6', // AI/智慧
+                            beige: '#fdfbf7',  // 画布底色
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-delayed': 'float 6s ease-in-out 3s infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-brand-light/30 text-slate-800 overflow-x-hidden">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+        
+        // --- Components ---
+
+        // 1. Navigation
+        const Navbar = () => (
+            <nav className="fixed w-full z-50 glass-card transition-all duration-300">
+                <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+                    {/* Logo */}
+                    <div className="flex items-center gap-3 cursor-pointer">
+                        <div className="w-10 h-10 bg-brand-blue rounded-lg flex items-center justify-center shadow-lg shadow-brand-blue/30 transform hover:scale-105 transition-transform">
+                            <span className="text-white font-bold text-lg tracking-tighter">SE</span>
+                        </div>
+                        <span className="font-bold text-slate-800 text-xl tracking-tight hidden md:block">Smart EduBoard 思迈</span>
+                    </div>
+
+                    {/* Links */}
+                    <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+                        <a href="#" className="hover:text-brand-blue transition-colors">产品功能</a>
+                        <a href="#" className="hover:text-brand-blue transition-colors">解决方案</a>
+                        <a href="#" className="hover:text-brand-blue transition-colors">资源社区</a>
+                        <a href="#" className="hover:text-brand-blue transition-colors">关于我们</a>
+                    </div>
+
+                    {/* Actions */}
+                    <div className="flex items-center gap-4">
+                        <span className="hidden lg:block text-brand-blue font-semibold mr-2">
+                             <i data-lucide="phone" className="inline w-4 h-4 mr-1"></i>
+                             6666-8888
+                        </span>
+                        <button className="text-slate-600 hover:text-brand-blue font-medium px-4 py-2 transition-colors">登录</button>
+                        <button className="bg-brand-blue hover:bg-brand-dark text-white px-6 py-2.5 rounded-full font-medium shadow-lg shadow-brand-blue/20 transition-all hover:shadow-brand-blue/40 transform hover:-translate-y-0.5">
+                            免费开始
+                        </button>
+                    </div>
+                </div>
+            </nav>
+        );
+
+        // 2. Hero Section
+        const Hero = () => (
+            <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+                {/* Background Blobs */}
+                <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-bl from-blue-100/50 to-transparent rounded-full blur-3xl -z-10 translate-x-1/3 -translate-y-1/4"></div>
+                <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gradient-to-tr from-accent-paleGreen/40 to-transparent rounded-full blur-3xl -z-10 -translate-x-1/4 translate-y-1/4"></div>
+
+                <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
+                    {/* Left Content */}
+                    <div className="relative z-10">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-purple/10 text-accent-purple text-xs font-bold mb-6 border border-accent-purple/20">
+                            <span className="relative flex h-2 w-2">
+                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-purple opacity-75"></span>
+                              <span className="relative inline-flex rounded-full h-2 w-2 bg-accent-purple"></span>
+                            </span>
+                            全新 V2.0 AI 智能体中心已上线
+                        </div>
+                        <h1 className="text-5xl lg:text-7xl font-extrabold leading-tight mb-6 text-slate-900">
+                            让教学灵感在<br/>
+                            <span className="bg-gradient-to-r from-brand-blue via-accent-purple to-brand-blue text-transparent bg-clip-text">无限画布</span>上流淌
+                        </h1>
+                        <p className="text-lg text-slate-600 mb-8 leading-relaxed max-w-xl">
+                            告别传统 PPT 的线性束缚。Smart EduBoard 融合无限画布、AI 智能体与即时互动，为教师打造自由、高效、富有创造力的教学新体验。
+                        </p>
+                        <div className="flex flex-col sm:flex-row gap-4">
+                            <button className="flex items-center justify-center gap-2 bg-accent-orange hover:bg-orange-600 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-xl shadow-accent-orange/30 transition-all hover:scale-105">
+                                立即免费使用
+                                <i data-lucide="arrow-right" className="w-5 h-5"></i>
+                            </button>
+                            <button className="flex items-center justify-center gap-2 bg-white hover:bg-gray-50 text-slate-700 border border-slate-200 px-8 py-4 rounded-xl font-bold text-lg shadow-sm transition-all hover:border-brand-blue/30">
+                                <i data-lucide="play-circle" className="w-5 h-5 text-brand-blue"></i>
+                                观看演示视频
+                            </button>
+                        </div>
+                        
+                        <div className="mt-10 flex items-center gap-4 text-sm text-slate-500">
+                            <div className="flex -space-x-2">
+                                {[1,2,3,4].map(i => (
+                                    <div key={i} className="w-8 h-8 rounded-full border-2 border-white bg-gray-200 flex items-center justify-center text-xs overflow-hidden">
+                                        <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${i*123}`} alt="avatar" />
+                                    </div>
+                                ))}
+                            </div>
+                            <p>已有 <span className="font-bold text-slate-800">50,000+</span> 位创新教师加入</p>
+                        </div>
+                    </div>
+
+                    {/* Right Visual (Mockup) */}
+                    <div className="relative animate-float lg:ml-10">
+                        {/* Decorative floating icons */}
+                        <div className="absolute -top-12 -left-12 bg-white p-4 rounded-2xl shadow-xl z-20 animate-float-delayed hidden md:block">
+                            <i data-lucide="brain-circuit" className="w-8 h-8 text-accent-purple"></i>
+                        </div>
+                        <div className="absolute -bottom-8 -right-8 bg-white p-4 rounded-2xl shadow-xl z-20 animate-bounce hidden md:block">
+                            <i data-lucide="sparkles" className="w-8 h-8 text-accent-orange"></i>
+                        </div>
+
+                        {/* Main Interface Mockup */}
+                        <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden relative z-10">
+                            {/* Browser Header */}
+                            <div className="bg-slate-50 border-b border-slate-200 px-4 py-3 flex items-center gap-2">
+                                <div className="flex gap-1.5">
+                                    <div className="w-3 h-3 rounded-full bg-red-400"></div>
+                                    <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
+                                    <div className="w-3 h-3 rounded-full bg-green-400"></div>
+                                </div>
+                                <div className="ml-4 flex-1 bg-white border border-slate-200 rounded-md h-6 w-1/2"></div>
+                            </div>
+                            {/* Canvas Content */}
+                            <div className="aspect-[4/3] bg-accent-beige relative p-6 overflow-hidden">
+                                {/* Simulated Nodes */}
+                                <div className="absolute top-10 left-10 w-48 bg-white p-4 rounded-lg shadow-md border-l-4 border-accent-purple transform -rotate-2">
+                                    <div className="h-2 w-12 bg-gray-200 rounded mb-2"></div>
+                                    <div className="h-2 w-32 bg-gray-100 rounded mb-1"></div>
+                                    <div className="h-2 w-24 bg-gray-100 rounded"></div>
+                                    <div className="absolute -right-3 -top-3 bg-accent-purple text-white p-1.5 rounded-full">
+                                        <i data-lucide="wand-2" className="w-3 h-3"></i>
+                                    </div>
+                                </div>
+                                
+                                <svg className="absolute top-0 left-0 w-full h-full pointer-events-none">
+                                    <path d="M 180 80 Q 250 80 300 150" fill="none" stroke="#cbd5e1" strokeWidth="2" strokeDasharray="5,5" />
+                                </svg>
+
+                                <div className="absolute top-32 left-1/2 transform -translate-x-1/2 w-64 bg-white p-1 rounded-lg shadow-lg">
+                                    <div className="bg-brand-light rounded h-32 flex items-center justify-center text-brand-blue/30">
+                                        <i data-lucide="image" className="w-10 h-10"></i>
+                                    </div>
+                                    <div className="p-3">
+                                        <div className="h-3 w-3/4 bg-gray-200 rounded mb-2"></div>
+                                        <div className="flex gap-2">
+                                            <span className="px-2 py-0.5 bg-accent-green/10 text-accent-green text-[10px] rounded">优秀</span>
+                                            <span className="px-2 py-0.5 bg-brand-blue/10 text-brand-blue text-[10px] rounded">批改中</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="absolute bottom-10 right-10 w-40 bg-accent-orange text-white p-4 rounded-lg shadow-lg transform rotate-3">
+                                    <p className="text-xs font-bold mb-1">课堂问答</p>
+                                    <div className="h-1.5 w-full bg-white/30 rounded-full overflow-hidden">
+                                        <div className="h-full bg-white w-2/3"></div>
+                                    </div>
+                                    <p className="text-[10px] mt-1 text-white/80">32人已提交</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        );
+
+        // 3. Features Section (Cards)
+        const Features = () => {
+            const features = [
+                {
+                    title: "AI 智能备课",
+                    desc: "输入课题，一键生成教案、课件与思维导图。让 智能体中心 助力您的高效工作。",
+                    icon: "sparkles",
+                    color: "bg-accent-purple",
+                    textColor: "text-accent-purple",
+                    bgLight: "bg-purple-50",
+                    borderColor: "border-purple-100"
+                },
+                {
+                    title: "无尽画布协作",
+                    desc: "打破页面限制，随意缩放。支持多人实时协作，教学团队集思广益。",
+                    icon: "infinity",
+                    color: "bg-brand-blue",
+                    textColor: "text-brand-blue",
+                    bgLight: "bg-blue-50",
+                    borderColor: "border-blue-100"
+                },
+                {
+                    title: "趣味课堂互动",
+                    desc: "内置大转盘、计时器、抢答器。让每一堂课都生动有趣，学生参与度倍增。",
+                    icon: "gamepad-2",
+                    color: "bg-accent-orange",
+                    textColor: "text-accent-orange",
+                    bgLight: "bg-orange-50",
+                    borderColor: "border-orange-100"
+                },
+                {
+                    title: "海量资源社区",
+                    desc: "一键引用名师课件、试题库。在社区中分享灵感，与全国教师共同成长。",
+                    icon: "library",
+                    color: "bg-accent-green",
+                    textColor: "text-accent-green",
+                    bgLight: "bg-green-50",
+                    borderColor: "border-green-100"
+                }
+            ];
+
+            return (
+                <section className="py-24 bg-white relative">
+                    <div className="max-w-7xl mx-auto px-6">
+                        <div className="text-center mb-16">
+                            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-900">不只是数字白板，更是全能教学工作台</h2>
+                            <p className="text-slate-500 max-w-2xl mx-auto">Smart EduBoard 将您需要的工具整合在同一个无限空间内，所见即所得。</p>
+                        </div>
+                        
+                        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                            {features.map((f, idx) => (
+                                <div key={idx} className={`group p-8 rounded-3xl border ${f.borderColor} ${f.bgLight} hover:bg-white hover:shadow-xl transition-all duration-300 cursor-default relative overflow-hidden`}>
+                                    <div className={`w-14 h-14 ${f.color} rounded-2xl flex items-center justify-center text-white mb-6 shadow-lg transform group-hover:scale-110 transition-transform duration-300`}>
+                                        <i data-lucide={f.icon} className="w-7 h-7"></i>
+                                    </div>
+                                    <h3 className={`text-xl font-bold mb-3 ${f.textColor} group-hover:text-slate-900 transition-colors`}>{f.title}</h3>
+                                    <p className="text-slate-600 text-sm leading-relaxed">{f.desc}</p>
+                                    
+                                    {/* Decoration */}
+                                    <div className={`absolute -bottom-6 -right-6 w-24 h-24 ${f.color} opacity-10 rounded-full blur-2xl group-hover:opacity-20 transition-opacity`}></div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // 4. Highlight Section (米色背景 - 画布感)
+        const WorkflowSection = () => (
+            <section className="py-24 bg-accent-beige border-y border-stone-100">
+                <div className="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row items-center gap-16">
+                     <div className="lg:w-1/2">
+                        <div className="relative">
+                            <div className="absolute -inset-4 bg-gradient-to-r from-blue-200 to-purple-200 rounded-[2rem] blur-lg opacity-50"></div>
+                            <img 
+                                src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
+                                alt="Dashboard Workflow" 
+                                className="relative rounded-2xl shadow-2xl border-4 border-white"
+                            />
+                            {/* Floating Card */}
+                            <div className="absolute -bottom-10 -left-6 bg-white p-4 rounded-xl shadow-xl border border-gray-100 max-w-xs hidden sm:block">
+                                <div className="flex items-center gap-3 mb-2">
+                                    <div className="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center font-bold">L</div>
+                                    <div>
+                                        <p className="text-sm font-bold">李老师</p>
+                                        <p className="text-xs text-gray-500">刚刚批改了作业</p>
+                                    </div>
+                                </div>
+                                <div className="text-xs bg-gray-50 p-2 rounded text-gray-600">
+                                    "这篇作文逻辑很清晰，但在时态运用上还需要注意..."
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="lg:w-1/2">
+                        <h2 className="text-3xl md:text-4xl font-bold mb-6 text-slate-800">
+                            从<span className="text-brand-blue">备课</span>到<span className="text-accent-orange">批改</span><br/>
+                            一站式工作流
+                        </h2>
+                        <div className="space-y-8">
+                            <div className="flex gap-4">
+                                <div className="w-12 h-12 rounded-full bg-white border border-blue-100 flex items-center justify-center text-brand-blue flex-shrink-0 shadow-sm">
+                                    <span className="font-bold text-lg">1</span>
+                                </div>
+                                <div>
+                                    <h4 className="text-lg font-bold text-slate-800 mb-1">拖拽式排版</h4>
+                                    <p className="text-slate-500 text-sm">支持 PDF、图片、音视频随意拖入，像拼图一样组织教学内容。</p>
+                                </div>
+                            </div>
+                            <div className="flex gap-4">
+                                <div className="w-12 h-12 rounded-full bg-white border border-orange-100 flex items-center justify-center text-accent-orange flex-shrink-0 shadow-sm">
+                                    <span className="font-bold text-lg">2</span>
+                                </div>
+                                <div>
+                                    <h4 className="text-lg font-bold text-slate-800 mb-1">批量作业处理</h4>
+                                    <p className="text-slate-500 text-sm">学生作业批量上传至画布，配合 OCR 识别，批改效率提升 300%。</p>
+                                </div>
+                            </div>
+                            <div className="flex gap-4">
+                                <div className="w-12 h-12 rounded-full bg-white border border-purple-100 flex items-center justify-center text-accent-purple flex-shrink-0 shadow-sm">
+                                    <span className="font-bold text-lg">3</span>
+                                </div>
+                                <div>
+                                    <h4 className="text-lg font-bold text-slate-800 mb-1">个性化反馈生成</h4>
+                                    <p className="text-slate-500 text-sm">基于学情数据，一键生成针对性的学习建议文档，通过链接即刻分发。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        );
+
+        // 5. CTA Section
+        const CTA = () => (
+            <section className="py-20 px-6">
+                <div className="max-w-6xl mx-auto bg-brand-blue rounded-[3rem] overflow-hidden relative shadow-2xl shadow-brand-blue/30 text-center py-16 px-6 lg:px-20">
+                    {/* Background Pattern */}
+                    <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_2px,transparent_2px)] [background-size:24px_24px]"></div>
+                    <div className="absolute top-0 left-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+                    <div className="absolute bottom-0 right-0 w-64 h-64 bg-accent-orange/20 rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
+
+                    <div className="relative z-10">
+                        <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">准备好升级您的课堂了吗？</h2>
+                        <p className="text-blue-100 text-lg mb-10 max-w-2xl mx-auto">加入 Smart EduBoard 教师先锋计划，体验前所未有的教学自由。现在注册，立享高级版功能。</p>
+                        
+                        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                            <button className="bg-accent-orange hover:bg-orange-500 text-white px-10 py-4 rounded-xl font-bold text-lg shadow-lg transition-all transform hover:scale-105">
+                                免费注册体验
+                            </button>
+                            <div className="bg-white/10 backdrop-blur-sm border border-white/20 px-8 py-4 rounded-xl text-white font-medium flex items-center gap-2">
+                                <i data-lucide="phone-call" className="w-5 h-5"></i>
+                                咨询热线：6666-8888
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        );
+
+        // 6. Footer
+        const Footer = () => (
+            <footer className="bg-white border-t border-slate-100 pt-16 pb-8">
+                <div className="max-w-7xl mx-auto px-6">
+                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 mb-12">
+                        <div className="col-span-2 lg:col-span-2">
+                            <div className="flex items-center gap-2 mb-4">
+                                <div className="w-8 h-8 bg-brand-blue rounded flex items-center justify-center">
+                                    <span className="text-white font-bold text-sm">SE</span>
+                                </div>
+                                <span className="font-bold text-xl text-slate-800">Smart EduBoard 思迈</span>
+                            </div>
+                            <p className="text-slate-500 text-sm max-w-xs mb-4">
+                                赋能全国教师，让知识传递更简单、更高效。
+                            </p>
+                            <div className="flex gap-4 text-slate-400 items-center">
+                                {/* WeChat Icon (SVG Direct) */}
+                                <a href="#" className="hover:text-[#07C160] transition-colors" title="微信公众号">
+                                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+                                        <path d="M8.5,14.5 C11.5375661,14.5 14,12.2614237 14,9.5 C14,6.73857625 11.5375661,4.5 8.5,4.5 C5.46243388,4.5 3,6.73857625 3,9.5 C3,10.7831037 3.65651717,11.9392272 4.70733856,12.8252277 L4.2,15.5 L6.83738016,14.0722394 C7.36217644,14.348398 7.91741169,14.5 8.5,14.5 Z M16.5,18.5 C19.2614237,18.5 21.5,16.4852814 21.5,14 C21.5,11.5147186 19.2614237,9.5 16.5,9.5 C13.7385763,9.5 11.5,11.5147186 11.5,14 C11.5,16.4852814 13.7385763,18.5 16.5,18.5 Z M16.5,18.5 L16.5,18.5 L18.8242959,19.664219 L18.4418641,17.756262 C19.3908851,17.0601955 20,15.9922254 20,14.8197176" />
+                                    </svg>
+                                </a>
+
+                                {/* Weibo Icon (SVG Direct) */}
+                                <a href="#" className="hover:text-[#E6162D] transition-colors" title="官方微博">
+                                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+                                        <path d="M12.008 2C6.483 2 2 6.48 2 12s4.483 10 10.008 10c5.524 0 10-4.48 10-10S17.532 2 12.008 2zm4.332 4.97c1.373 0 2.214.925 2.15 2.232-.027.56-.252.883-.553.883-.24 0-.39-.2-.333-.523.118-.65-.246-1.125-.97-1.125-.785 0-1.183.483-1.183 1.25 0 .584.28 1.058.828 1.058.452 0 .613-.268.613-.623 0-.323.215-.538.537-.538.312 0 .538.226.538.538 0 1.054-.925 1.763-2.312 1.763-1.635 0-2.473-1.075-2.473-2.613 0-1.666 1.344-2.302 3.16-2.302zm-1.89 12.443c-3.14 0-5.517-1.463-5.517-4.108 0-2.388 2.377-4.528 6.022-4.528 3.25 0 5.485 1.54 5.485 3.99 0 2.495-2.485 4.647-5.99 4.647z" />
+                                    </svg>
+                                </a>
+
+                                {/* Github (Lucide) */}
+                                <a href="#" className="hover:text-slate-900 transition-colors" title="GitHub">
+                                    <i data-lucide="github" className="w-5 h-5"></i>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 className="font-bold text-slate-800 mb-4">产品</h4>
+                            <ul className="space-y-2 text-sm text-slate-500">
+                                <li><a href="#" className="hover:text-brand-blue">功能介绍</a></li>
+                                <li><a href="#" className="hover:text-brand-blue">更新日志</a></li>
+                                <li><a href="#" className="hover:text-brand-blue">价格方案</a></li>
+                                <li><a href="#" className="hover:text-brand-blue">下载应用</a></li>
+                            </ul>
+                        </div>
+                         <div>
+                            <h4 className="font-bold text-slate-800 mb-4">资源</h4>
+                            <ul className="space-y-2 text-sm text-slate-500">
+                                <li><a href="#" className="hover:text-brand-blue">帮助中心</a></li>
+                                <li><a href="#" className="hover:text-brand-blue">教师社区</a></li>
+                                <li><a href="#" className="hover:text-brand-blue">模板库</a></li>
+                                <li><a href="#" className="hover:text-brand-blue">API 文档</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 className="font-bold text-slate-800 mb-4">联系我们</h4>
+                            <ul className="space-y-2 text-sm text-slate-500">
+                                <li className="flex items-center gap-2">
+                                    <i data-lucide="phone" className="w-4 h-4"></i>
+                                    6666-8888
+                                </li>
+                                <li className="flex items-center gap-2">
+                                    <i data-lucide="mail" className="w-4 h-4"></i>
+                                    contact@se-edu.com
+                                </li>
+                                <li className="flex items-center gap-2">
+                                    <i data-lucide="map-pin" className="w-4 h-4"></i>
+                                    未来市希望新区UrbanTech Education
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div className="border-t border-slate-100 pt-8 text-center text-sm text-slate-400 flex flex-col md:flex-row justify-between items-center gap-4">
+                        <p>© 2025 UrbanTech Education. All rights reserved.</p>
+                        <div className="flex gap-6">
+                            <a href="#" className="hover:text-slate-600">隐私政策</a>
+                            <a href="#" className="hover:text-slate-600">服务条款</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        );
+
+        // Main App
+        const App = () => {
+            useEffect(() => {
+                // Initialize Lucide icons
+                if (window.lucide) {
+                    window.lucide.createIcons();
+                }
+            });
+
+            return (
+                <div>
+                    <Navbar />
+                    <Hero />
+                    <Features />
+                    <WorkflowSection />
+                    <CTA />
+                    <Footer />
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>

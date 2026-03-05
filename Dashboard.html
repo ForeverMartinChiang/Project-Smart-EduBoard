@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>思迈教育白板 - 智能教学工作台</title>
+    <title>SmartEduBoard - Intelligent Worksatation</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -80,7 +80,7 @@
                 {isNew ? (
                     <div className="flex flex-col items-center justify-center text-blue-600 gap-2">
                         <div className="bg-blue-100 p-3 rounded-full"><Plus size={24} /></div>
-                        <span className="text-sm font-medium">新建白板</span>
+                        <span className="text-sm font-medium">New Canvas</span>
                     </div>
                 ) : (
                     <div className="w-full h-full bg-white shadow-sm rounded border border-gray-100 opacity-60 transform scale-90 group-hover:scale-95 transition-transform relative">
@@ -107,7 +107,7 @@
                         <div className="flex items-center justify-between mt-2 pt-2 border-t border-gray-50">
                             <div className="flex items-center gap-1.5">
                                 <div className="w-5 h-5 rounded-full bg-purple-100 text-purple-600 text-[10px] flex items-center justify-center font-bold">{owner?.[0] || 'M'}</div>
-                                <span className="text-[10px] text-gray-500">{owner || '我'}</span>
+                                <span className="text-[10px] text-gray-500">{owner || 'Me'}</span>
                             </div>
                             <button className="text-gray-400 hover:text-gray-600"><MoreHorizontal size={16} /></button>
                         </div>
@@ -120,12 +120,12 @@
             const [activeTab, setActiveTab] = useState('recent');
             const [viewMode, setViewMode] = useState('grid');
             const mockFiles = [
-                { id: 1, title: '示例：批改作业Workflow', date: '刚刚，点击进入', owner: 'Martin', color: 'bg-indigo-50' },
-                { id: 2, title: '高中物理-力学分析', date: '2小时前', owner: '物理李老师', color: 'bg-orange-50' },
-                { id: 3, title: '2025年教学规划', date: '昨天', owner: '行政 刘宏', color: 'bg-green-50' },
-                { id: 4, title: '英语角活动策划', date: '3天前', owner: 'Sarah', color: 'bg-pink-50' },
-                { id: 5, title: '高三一模错题集', date: '1周前', owner: '数学胡老师', color: 'bg-blue-50' },
-                { id: 6, title: '未命名白板', date: '2025/12/10', owner: '我', color: 'bg-gray-50' },
+                { id: 1, title: 'Example：Marking Assignments Workflow', date: 'Just now，click to enter', owner: 'Mr.Lee', color: 'bg-indigo-50' },
+                { id: 2, title: 'Fintech Research Papers Collected', date: '2h ago', owner: 'Haoh', color: 'bg-orange-50' },
+                { id: 3, title: 'Decision Tree Builtup', date: 'yesterday', owner: 'Daniel', color: 'bg-green-50' },
+                { id: 4, title: 'Business Project A', date: 'three days ago', owner: 'Echo', color: 'bg-pink-50' },
+                { id: 5, title: 'Special Effects Project', date: 'a week ago', owner: 'Cathy', color: 'bg-blue-50' },
+                { id: 6, title: '', date: '2026/2/10', owner: 'Me', color: 'bg-gray-50' },
             ];
 
             return (
@@ -135,23 +135,23 @@
                             <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center shadow-sm flex-shrink-0">
                                 <span className="text-white font-bold text-sm tracking-tighter">SE</span>
                             </div>
-                            <span className="font-bold text-gray-800 text-base tracking-tight">思迈教育白板</span>
+                            <span className="font-bold text-gray-800 text-base tracking-tight">SmartEduBoard思迈</span>
                         </div>
                         <div className="p-4">
-                            <button onClick={() => onOpenFile({ title: '未命名白板', isNew: true })} className="w-full bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center gap-2 py-2.5 rounded-lg shadow-sm transition-all font-medium text-sm">
-                                <Plus size={18} /> 新建白板
+                            <button onClick={() => onOpenFile({ title: 'Untitled Canvas', isNew: true })} className="w-full bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center gap-2 py-2.5 rounded-lg shadow-sm transition-all font-medium text-sm">
+                                <Plus size={18} /> New Canvas
                             </button>
                         </div>
                         <div className="flex-1 overflow-y-auto py-2 space-y-1">
-                            <SidebarItem icon={Clock} label="最近打开" active={activeTab === 'recent'} onClick={() => setActiveTab('recent')} />
-                            <SidebarItem icon={FolderOpen} label="我的文件" active={activeTab === 'myfiles'} onClick={() => setActiveTab('myfiles')} count={12} />
-                            <SidebarItem icon={Star} label="星标文件" active={activeTab === 'starred'} onClick={() => setActiveTab('starred')} />
-                            <div className="pt-4 pb-2 px-6 text-xs font-semibold text-gray-400 uppercase tracking-wider">团队空间</div>
-                            <SidebarItem icon={Users} label="思迈教研组" active={activeTab === 'team1'} onClick={() => setActiveTab('team1')} />
+                            <SidebarItem icon={Clock} label="Recently open" active={activeTab === 'recent'} onClick={() => setActiveTab('recent')} />
+                            <SidebarItem icon={FolderOpen} label="My files" active={activeTab === 'myfiles'} onClick={() => setActiveTab('myfiles')} count={12} />
+                            <SidebarItem icon={Star} label="Starred files" active={activeTab === 'starred'} onClick={() => setActiveTab('starred')} />
+                            <div className="pt-4 pb-2 px-6 text-xs font-semibold text-gray-400 uppercase tracking-wider">Team Space</div>
+                            <SidebarItem icon={Users} label="Rainbow Team" active={activeTab === 'team1'} onClick={() => setActiveTab('team1')} />
                         </div>
                         <div className="p-4 border-t border-gray-100 space-y-1">
-                            <SidebarItem icon={Trash2} label="回收站" />
-                            <SidebarItem icon={Settings} label="设置" />
+                            <SidebarItem icon={Trash2} label="Trash bin" />
+                            <SidebarItem icon={Settings} label="Settings" />
                         </div>
                     </div>
                     <div className="flex-1 flex flex-col overflow-hidden">
@@ -159,7 +159,7 @@
                             <div className="flex-1 max-w-xl">
                                 <div className="relative group">
                                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 group-focus-within:text-blue-500 transition-colors" size={18} />
-                                    <input type="text" placeholder="搜索白板、文档或文件夹..." className="w-full bg-gray-50 border border-gray-200 text-sm rounded-lg pl-10 pr-4 py-2 focus:outline-none focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all" />
+                                    <input type="text" placeholder="Search canvas, documents or folders..." className="w-full bg-gray-50 border border-gray-200 text-sm rounded-lg pl-10 pr-4 py-2 focus:outline-none focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all" />
                                 </div>
                             </div>
                             <div className="flex items-center gap-4 ml-4">
@@ -167,7 +167,7 @@
                                     <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-white font-semibold text-xs border-2 border-white shadow-sm">M</div>
                                     <div className="hidden md:block text-left">
                                         <div className="text-sm font-medium text-gray-700 leading-none">Martin</div>
-                                        <div className="text-[10px] text-gray-500 mt-0.5">高级教师版</div>
+                                        <div className="text-[10px] text-gray-500 mt-0.5">Student·Premium</div>
                                     </div>
                                     <ChevronDown size={14} className="text-gray-400" />
                                 </div>
@@ -177,13 +177,13 @@
                             <div className="max-w-7xl mx-auto">
                                 <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl p-6 mb-8 text-white shadow-md flex items-center justify-between relative overflow-hidden">
                                     <div className="relative z-10">
-                                        <h2 className="text-xl font-bold mb-2">欢迎回来, Martin! 👋</h2>
-                                        <p className="text-blue-100 text-sm max-w-lg">思迈教育白板已更新至 V2.0，自由探索 AI 智能体中心，高效开展教与学。</p>
+                                        <h2 className="text-xl font-bold mb-2">Welcome back, Martin! 👋</h2>
+                                        <p className="text-blue-100 text-sm max-w-lg">The SmartEduBoard has been updated to V2.0, enabling free exploration of the AI Agent Centre for efficient learning and collaboration.</p>
                                     </div>
                                     <MonitorPlay className="absolute -right-6 -bottom-6 text-white opacity-10 w-48 h-48" />
                                 </div>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-                                    <FileCard isNew title="新建白板" onClick={() => onOpenFile({ title: '未命名白板', isNew: true })} />
+                                    <FileCard isNew title="New Canvas" onClick={() => onOpenFile({ title: 'Untitled Canvas', isNew: true })} />
                                     {mockFiles.map(file => (
                                         <FileCard key={file.id} {...file} onClick={() => onOpenFile(file)} />
                                     ))}
@@ -319,7 +319,7 @@
                 {/* Placeholder Area */}
                 <div className="absolute top-[100px] left-[400px] w-[250px] h-[150px] border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center text-gray-400">
                     <LayoutGrid size={24} className="mb-2 opacity-50"/>
-                    <span className="text-xs">拖拽组件至此处</span>
+                    <span className="text-xs">Drag components here</span>
                 </div>
             </>
         );
@@ -335,20 +335,20 @@
             const resetZoom = () => setZoom(0.9);
 
             // Determine which content to show based on filename
-            const isWorkflow = fileName === '示例：批改作业Workflow';
+            const isWorkflow = fileName === 'Example：Marking Assignments Workflow';
 
             return (
                 <div className="flex flex-col h-screen w-full bg-[#F4F4F4] overflow-hidden font-sans text-slate-800">
                 {/* Navbar */}
                 <div className="h-14 bg-white border-b border-gray-200 flex items-center justify-between px-4 z-50 shrink-0">
                     <div className="flex items-center gap-4">
-                    <div onClick={onBack} className="p-1 hover:bg-gray-100 rounded cursor-pointer transition-colors" title="返回仪表盘">
+                    <div onClick={onBack} className="p-1 hover:bg-gray-100 rounded cursor-pointer transition-colors" title="Back to Dashboard">
                         <ChevronLeft size={20} className="text-gray-600" />
                     </div>
                     <div className="flex items-center gap-2">
-                        <h1 className="font-bold text-gray-800 text-sm md:text-base">{fileName || '未命名白板'}</h1>
+                        <h1 className="font-bold text-gray-800 text-sm md:text-base">{fileName || 'Untitled Canvas'}</h1>
                         <Star size={16} className="text-blue-500 fill-blue-500" />
-                        <span className="bg-gray-100 text-gray-500 text-[10px] px-1.5 py-0.5 rounded border border-gray-200">免费版</span>
+                        <span className="bg-gray-100 text-gray-500 text-[10px] px-1.5 py-0.5 rounded border border-gray-200">Free tier</span>
                     </div>
                     <div className="flex items-center gap-2 ml-2 border-l pl-4 border-gray-200">
                         <Menu size={18} className="text-gray-500" />
@@ -369,7 +369,7 @@
                         <IconButton icon={Filter} className="text-blue-600" />
                         <IconButton icon={MessageSquare} />
                         <div className="w-8 h-8 rounded-full bg-red-200 flex items-center justify-center text-red-500 text-xs font-bold border-2 border-white shadow-sm">M</div>
-                        <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-1.5 rounded-md text-sm font-medium flex items-center gap-2 transition-colors"><Share2 size={16} /> 分享</button>
+                        <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-1.5 rounded-md text-sm font-medium flex items-center gap-2 transition-colors"><Share2 size={16} /> Share</button>
                         <button className="p-1 hover:bg-gray-100 rounded ml-1"><ChevronUp size={16} className="text-gray-500" /></button>
                     </div>
                     </div>
@@ -421,7 +421,7 @@
                         <button onClick={handleZoomIn} className="p-2 hover:bg-gray-100 rounded text-gray-600 active:bg-gray-200 transition-colors"><Plus size={16} /></button>
                         
                         <div className="h-6 w-px bg-gray-200 mx-1"></div>
-                        <button onClick={resetZoom} className="p-2 hover:bg-gray-100 rounded text-gray-600" title="重置"><Maximize size={16} /></button>
+                        <button onClick={resetZoom} className="p-2 hover:bg-gray-100 rounded text-gray-600" title="Reset"><Maximize size={16} /></button>
                         <button className="p-2 hover:bg-gray-100 rounded text-gray-600 bg-gray-800 text-white rounded-full w-8 h-8 flex items-center justify-center"><HelpCircle size={16} /></button>
                         <button className="p-2 hover:bg-gray-100 rounded text-gray-600"><ChevronsRight size={16} className="rotate-90" /></button>
                     </div>

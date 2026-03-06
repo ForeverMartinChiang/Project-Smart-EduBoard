@@ -417,8 +417,8 @@
                         </div>
                     </div>
                 </div>
-                <SpeechBubble text="Adjust grading focus flexibly based on text type, e.g., format for practical writing, logic for essays." style={{ top: '60px', left: '420px', width: '180px' }} />
-                <div className="absolute top-80 left-100 bg-green-200 rounded-full w-20 h-20 flex items-center justify-center text-center text-[10px] shadow-sm z-10" style={{ top: '120px', left: '260px' }}>Martin<br/>is<br/>handsome</div>
+                <SpeechBubble text="Adjust grading focus flexibly based on text type, e.g., format for practical writing, logic for essays." style={{ top: '3px', left: '420px', width: '180px' }} />
+                <div className="absolute top-80 left-100 bg-green-200 rounded-full w-20 h-20 flex items-center justify-center text-center text-[10px] shadow-sm z-10" style={{ top: '120px', left: '260px' }}>Mr.Lee<br/>is<br/>editing</div>
 
                 <div className="absolute top-[350px] left-[280px] w-[200px] h-[400px] bg-white border border-gray-200 shadow-md p-3 rounded-md">
                      <h3 className="text-gray-600 mb-3 text-sm font-medium">Homework Area</h3>
@@ -426,21 +426,21 @@
                         <div className="flex gap-2"><div className="w-8 h-6 bg-blue-100 text-blue-500 text-[10px] flex items-center justify-center rounded">Item</div><div className="flex-1 h-6 bg-gray-50 border border-dashed border-gray-300 rounded"></div></div>
                          <div className="flex gap-2"><div className="w-8 h-8 bg-blue-100 text-blue-500 text-[10px] flex items-center text-center justify-center rounded leading-tight">Student<br/>Work</div><div className="flex flex-col gap-2"><div className="w-24 h-16 bg-gray-200 rounded overflow-hidden relative"><div className="absolute inset-0 flex items-center justify-center text-[8px] text-gray-400">Image 1</div></div><div className="w-24 h-16 bg-gray-200 rounded overflow-hidden relative"><div className="absolute inset-0 flex items-center justify-center text-[8px] text-gray-400">Image 2</div></div></div></div>
                      </div>
-                     <StickyNoteElement text="If there is a lot of homework, batch upload and processing is available." author="Martin" color="bg-yellow-100" style={{ bottom: '40px', right: '-40px' }} />
+                     <StickyNoteElement text="If there is a lot of homework, batch upload and processing is available." author="Mr.Lee" color="bg-yellow-100" style={{ bottom: '40px', right: '-40px' }} />
                      <SpeechBubble text="Link cloud folder here" style={{ top: '-10px', right: '-60px' }} tailPosition="left" />
                 </div>
 
                 <WorkflowCard title="Homework Review" number="1" headerColor="bg-blue-50" className="w-[300px] h-[330px]" style={{ top: '250px', left: '600px', zIndex: 10 }} content={
                         <div className="space-y-2"><p>You are a senior high school English teacher. Please automatically recognize and complete the following tasks based on the image:</p><ol className="list-decimal pl-4 space-y-1 text-gray-500"><li>Score each student item-by-item and give a total score based on standard criteria;</li><li>Provide clear feedback, pointing out strengths and weaknesses;</li><li>Give an encouraging summary comment;</li></ol><p className="mt-2 text-gray-400 italic">Please extract the prompt and content from the image before proceeding...</p></div>
                     } />
-                 <div className="absolute bg-[#C8F08F] shadow-md p-3 rounded-sm transform -rotate-2 z-20 text-center flex flex-col items-center justify-center" style={{ top: '150px', left: '620px', width: '160px', height: '90px' }}><p className="text-gray-800 font-bold text-xs leading-tight">Teachers can modify system prompts to customize grading style.</p><span className="text-[8px] mt-1 text-gray-600">Martin Submitter</span></div>
+                 <div className="absolute bg-[#C8F08F] shadow-md p-3 rounded-sm transform -rotate-2 z-20 text-center flex flex-col items-center justify-center" style={{ top: '150px', left: '620px', width: '160px', height: '90px' }}><p className="text-gray-800 font-bold text-xs leading-tight">Teachers can modify system prompts to customize grading style.</p><span className="text-[8px] mt-1 text-gray-600">Mr.Lee Submitter</span></div>
                 <div className="absolute bg-[#C8F08F] shadow-md p-2 rounded-sm z-20" style={{ top: '440px', left: '850px', width: '120px' }}><p className="text-[9px] text-gray-800 leading-tight">AI plugins can call external apps (e.g., plagiarism check)</p></div>
                 <SpeechBubble text="Click to Run" style={{ top: '220px', left: '840px' }} />
 
                 <div className="absolute" style={{ top: '200px', left: '950px' }}>
                     <h3 className="text-gray-500 mb-2 ml-2 text-sm">Homework Analysis</h3>
                     <DocCard title="Analysis Results"><p><strong>Student 1:</strong></p><p>The essay on public transportation safety...</p><br/><p><strong>Student 2:</strong></p><p>Regarding the school sports meet...</p></DocCard>
-                    <SpeechBubble text="After generating results, you can continue adding other content." style={{ top: '-10px', left: '20px' }} />
+                    <SpeechBubble text="After generating results, you can continue adding other content." style={{ top: '-20px', left: '-10px' }} />
                 </div>
 
                 <WorkflowCard title="Writing & Improvement Guide" number="2" headerColor="bg-blue-50" className="w-[300px] h-[300px]" style={{ top: '680px', left: '600px', zIndex: 10 }} content={
@@ -450,7 +450,7 @@
                 <div className="absolute" style={{ top: '650px', left: '950px' }}>
                      <h3 className="text-gray-500 mb-2 ml-2 text-sm">Student Improvement Guide</h3>
                     <DocCard title="Improvement Suggestions"><p><strong>Student 1:</strong></p><p>[Score]: 21 (Good)</p><p>[Issue]: Good grammatical accuracy, slightly lacking in vocabulary diversity.</p><br/><p><strong>Student 2:</strong></p><p>[Score]: 18 (Average)</p><p>[Direction]: 1. Strengthen spelling... 2. Learn standard paragraph structure...</p></DocCard>
-                     <SpeechBubble text="Generate exclusive training suggestions based on weaknesses." style={{ top: '-40px', left: '60px', width: '180px' }} />
+                     <SpeechBubble text="Generate exclusive training suggestions based on weaknesses." style={{ top: '-70px', left: '60px', width: '180px' }} />
                 </div>
             </>
         );

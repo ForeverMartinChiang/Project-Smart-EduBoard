@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmartEduBoard - Intelligent Worksatation</title>
+    <title>SmartEduBoard - Intelligent Workstation</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -28,7 +28,7 @@
                         sans: ['-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'Arial', 'sans-serif'],
                     }
                 }
-            }
+            },
             safelist: [
                 'bg-indigo-50', 'bg-orange-50', 'bg-green-50', 'bg-pink-50', 'bg-blue-50', 'bg-gray-50'
             ]
@@ -37,7 +37,7 @@
     
     <style>
         /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
@@ -54,20 +54,19 @@
         import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client';
         import * as LucideIcons from 'https://esm.sh/lucide-react@0.292.0';
 
-        // Destructure icons
+        // === Import all required icons ===
         const {
             Search, Bell, Grid, List, MoreHorizontal, Clock, Star, Trash2, FolderOpen, Plus, ChevronDown, 
             LayoutTemplate, Users, FileText, Settings, LogOut, MonitorPlay, ChevronLeft, Menu, Download, 
             Video, Lightbulb, Timer, Network, BarChart2, Filter, MessageSquare, Share2, MousePointer2, 
             LayoutGrid, StickyNote, Type, Minus, MessageCircle, Frame, Table, BrainCircuit, ChevronsRight, 
             Undo2, Redo2, Map, PenTool, Minimize, Maximize, HelpCircle, ChevronUp, Play, Scan,
-            // AI Panel Icon Added
             X, Split, PlayCircle, UploadCloud, Image, File, Disc, Globe, 
             ListChecks, GitBranch, Rocket, Puzzle, Target, FileSearch, GraduationCap, Hand, Megaphone, Layers, BookOpen
         } = LucideIcons;
 
         // ==========================================
-        // 1. SHARED & DASHBOARD COMPONENTS
+        // 1. DASHBOARD COMPONENTS
         // ==========================================
 
         const SidebarItem = ({ icon: Icon, label, active, onClick, count }) => (
@@ -124,13 +123,12 @@
 
         const Dashboard = ({ onOpenFile }) => {
             const [activeTab, setActiveTab] = useState('recent');
-            const [viewMode, setViewMode] = useState('grid');
             const mockFiles = [
-                { id: 1, title: 'Example：Marking Assignments Workflow', date: 'Just now，click to enter', owner: 'Mr.Lee', color: 'bg-indigo-50' },
-                { id: 2, title: 'Fintech Research Papers Collected', date: '2h ago', owner: 'Haoh', color: 'bg-orange-50' },
-                { id: 3, title: 'Decision Tree Builtup', date: 'yesterday', owner: 'Daniel', color: 'bg-green-50' },
-                { id: 4, title: 'Business Project A', date: 'three days ago', owner: 'Echo', color: 'bg-pink-50' },
-                { id: 5, title: 'Special Effects Project', date: 'a week ago', owner: 'Cathy', color: 'bg-blue-50' },
+                { id: 1, title: 'Example: Marking Assignments Workflow', date: 'Just now, click to enter', owner: 'Mr.Lee', color: 'bg-indigo-50' },
+                { id: 2, title: 'Fintech Research Papers Collected', date: '2 hours ago', owner: 'Haoh', color: 'bg-orange-50' },
+                { id: 3, title: 'Decision Tree Builtup', date: 'Yesterday', owner: 'Daniel', color: 'bg-green-50' },
+                { id: 4, title: 'Business Project A', date: '3 days ago', owner: 'Echo', color: 'bg-pink-50' },
+                { id: 5, title: 'Special Effects- Comic Films', date: 'a week ago', owner: 'Cathy', color: 'bg-blue-50' },
                 { id: 6, title: '', date: '2026/2/10', owner: 'Me', color: 'bg-gray-50' },
             ];
 
@@ -141,22 +139,22 @@
                             <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center shadow-sm flex-shrink-0">
                                 <span className="text-white font-bold text-sm tracking-tighter">SE</span>
                             </div>
-                            <span className="font-bold text-gray-800 text-base tracking-tight">SmartEduBoard思迈</span>
+                            <span className="font-bold text-gray-800 text-base tracking-tight">Smart EduBoard思迈</span>
                         </div>
                         <div className="p-4">
-                            <button onClick={() => onOpenFile({ title: 'Untitled Canvas', isNew: true })} className="w-full bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center gap-2 py-2.5 rounded-lg shadow-sm transition-all font-medium text-sm">
+                            <button onClick={() => onOpenFile({ title: 'Untitled Board', isNew: true })} className="w-full bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center gap-2 py-2.5 rounded-lg shadow-sm transition-all font-medium text-sm">
                                 <Plus size={18} /> New Canvas
                             </button>
                         </div>
                         <div className="flex-1 overflow-y-auto py-2 space-y-1">
-                            <SidebarItem icon={Clock} label="Recently open" active={activeTab === 'recent'} onClick={() => setActiveTab('recent')} />
-                            <SidebarItem icon={FolderOpen} label="My files" active={activeTab === 'myfiles'} onClick={() => setActiveTab('myfiles')} count={12} />
-                            <SidebarItem icon={Star} label="Starred files" active={activeTab === 'starred'} onClick={() => setActiveTab('starred')} />
+                            <SidebarItem icon={Clock} label="Recent" active={activeTab === 'recent'} onClick={() => setActiveTab('recent')} />
+                            <SidebarItem icon={FolderOpen} label="My Files" active={activeTab === 'myfiles'} onClick={() => setActiveTab('myfiles')} count={12} />
+                            <SidebarItem icon={Star} label="Starred" active={activeTab === 'starred'} onClick={() => setActiveTab('starred')} />
                             <div className="pt-4 pb-2 px-6 text-xs font-semibold text-gray-400 uppercase tracking-wider">Team Space</div>
-                            <SidebarItem icon={Users} label="Rainbow Team" active={activeTab === 'team1'} onClick={() => setActiveTab('team1')} />
+                            <SidebarItem icon={Users} label="Edu Research Team" active={activeTab === 'team1'} onClick={() => setActiveTab('team1')} />
                         </div>
                         <div className="p-4 border-t border-gray-100 space-y-1">
-                            <SidebarItem icon={Trash2} label="Trash bin" />
+                            <SidebarItem icon={Trash2} label="Trash" />
                             <SidebarItem icon={Settings} label="Settings" />
                         </div>
                     </div>
@@ -165,7 +163,7 @@
                             <div className="flex-1 max-w-xl">
                                 <div className="relative group">
                                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 group-focus-within:text-blue-500 transition-colors" size={18} />
-                                    <input type="text" placeholder="Search canvas, documents or folders..." className="w-full bg-gray-50 border border-gray-200 text-sm rounded-lg pl-10 pr-4 py-2 focus:outline-none focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all" />
+                                    <input type="text" placeholder="Search canvas or folders..." className="w-full bg-gray-50 border border-gray-200 text-sm rounded-lg pl-10 pr-4 py-2 focus:outline-none focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all" />
                                 </div>
                             </div>
                             <div className="flex items-center gap-4 ml-4">
@@ -184,12 +182,12 @@
                                 <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl p-6 mb-8 text-white shadow-md flex items-center justify-between relative overflow-hidden">
                                     <div className="relative z-10">
                                         <h2 className="text-xl font-bold mb-2">Welcome back, Martin! 👋</h2>
-                                        <p className="text-blue-100 text-sm max-w-lg">The SmartEduBoard has been updated to V2.0, enabling free exploration of the AI Agent Centre for efficient learning and collaboration.</p>
+                                        <p className="text-blue-100 text-sm max-w-lg">Smart EduBoard is updated to V2.0. Try the new AI assistant features for efficient learning and collaboration!</p>
                                     </div>
                                     <MonitorPlay className="absolute -right-6 -bottom-6 text-white opacity-10 w-48 h-48" />
                                 </div>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-                                    <FileCard isNew title="New Canvas" onClick={() => onOpenFile({ title: 'Untitled Canvas', isNew: true })} />
+                                    <FileCard isNew title="New Board" onClick={() => onOpenFile({ title: 'Untitled Board', isNew: true })} />
                                     {mockFiles.map(file => (
                                         <FileCard key={file.id} {...file} onClick={() => onOpenFile(file)} />
                                     ))}
@@ -202,7 +200,7 @@
         };
 
         // ==========================================
-        // 2. EDITOR COMPONENTS & AI Panel
+        // 2. EDITOR COMPONENTS & AI PANEL
         // ==========================================
 
         const IconButton = ({ icon: Icon, active, className = "", onClick }) => (
@@ -255,10 +253,9 @@
         );
 
         // ==========================================
-        // AI AGENT PANEL COMPONENT
+        //  AI AGENT PANEL COMPONENT 
         // ==========================================
         const AIAgentPanel = ({ isOpen, onClose }) => {
-            // Data mappings for English content & icons matching the screenshots
             const basicItems = [
                 { icon: PlayCircle, label: 'Start Node', color: 'text-blue-500', bg: 'bg-blue-50' },
                 { icon: Split, label: 'Condition', color: 'text-purple-500', bg: 'bg-purple-50' },
@@ -304,7 +301,10 @@
             );
 
             return (
-                <div className={`absolute top-0 left-0 h-full w-[360px] bg-white shadow-[15px_0_30px_rgba(0,0,0,0.08)] border-r border-gray-100 z-30 transition-transform duration-300 ease-in-out transform flex flex-col ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+                /* * FIX: absolute left-14 ensures it sits exactly to the right of the w-14 toolbar. 
+                 * z-30 makes it slide perfectly behind the toolbar (z-40).
+                 */
+                <div className={`absolute top-0 left-14 h-full w-[360px] bg-white shadow-[15px_0_30px_rgba(0,0,0,0.08)] border-r border-gray-100 z-30 transition-transform duration-300 ease-in-out transform flex flex-col ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
                     
                     {/* Panel Header */}
                     <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 shrink-0 bg-white">
@@ -329,7 +329,7 @@
                             </div>
 
                             <button className="w-full bg-gradient-to-r from-indigo-500 to-blue-500 hover:from-indigo-600 hover:to-blue-600 text-white font-bold py-3 rounded-xl shadow-md flex items-center justify-center gap-2 transition-all transform hover:scale-[1.02]">
-                                Try Demo, Examples <MousePointer2 size={16} className="ml-1 opacity-80" />
+                                Try Demo & Examples <MousePointer2 size={16} className="ml-1 opacity-80" />
                             </button>
                         </div>
 
@@ -337,9 +337,9 @@
                         <div className="flex gap-2">
                             <div className="relative flex-1">
                                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={16} />
-                                <input type="text" placeholder="Search agents..." className="w-full bg-gray-50 border border-gray-200 rounded-xl pl-9 pr-3 py-2 text-sm focus:outline-none focus:border-blue-500 focus:bg-white transition-colors" />
+                                <input type="text" placeholder="Search categories..." className="w-full bg-gray-50 border border-gray-200 rounded-xl pl-9 pr-3 py-2 text-sm focus:outline-none focus:border-blue-500 focus:bg-white transition-colors" />
                             </div>
-                            <div className="border border-gray-200 rounded-xl px-3 flex items-center justify-between bg-white cursor-pointer min-w-[90px] text-sm text-gray-600 hover:bg-gray-50 transition-colors">
+                            <div className="border border-gray-200 rounded-xl px-3 flex items-center justify-between bg-white cursor-pointer min-w-[100px] text-sm text-gray-600 hover:bg-gray-50 transition-colors">
                                 All <ChevronDown size={14} className="text-gray-400"/>
                             </div>
                         </div>
@@ -377,17 +377,20 @@
                     {/* Panel Footer */}
                     <div className="p-4 border-t border-gray-100 flex items-center justify-between text-sm text-gray-600 bg-gray-50/50 shrink-0">
                         <div className="flex items-center gap-2 cursor-pointer hover:text-blue-600 font-medium">
-                            <LayoutGrid size={16} className="text-purple-500"/> App Center
+                            <LayoutGrid size={16} className="text-purple-500"/> Agent App Center
                         </div>
                         <div className="flex items-center gap-1 cursor-pointer hover:text-blue-600 text-gray-400 text-xs">
-                            <Lightbulb size={14}/> Create yours →
+                            <Lightbulb size={14}/> Create your agent →
                         </div>
                     </div>
                 </div>
             )
         };
 
-        // --- CONTENT 1: Marking Assignments Workflow  ---
+        // ==========================================
+        // WORKFLOW & DRAFT CONTENT
+        // ==========================================
+
         const WorkflowContent = () => (
             <>
                 <svg className="absolute top-0 left-0 w-full h-full pointer-events-none z-0">
@@ -403,81 +406,76 @@
                 </svg>
 
                 <div className="absolute top-20 left-80 w-[300px] bg-white p-2 shadow-sm border border-gray-200 rounded">
-                    <h3 className="text-gray-500 mb-2 text-sm font-medium">作业评判参考</h3>
+                    <h3 className="text-gray-500 mb-2 text-sm font-medium">Grading Reference</h3>
                     <div className="border border-blue-100 bg-blue-50/30 rounded p-1">
                         <div className="grid grid-cols-4 gap-1 text-[8px] text-gray-500 text-center">
-                            <div className="col-span-1 bg-blue-100 p-1">评分标准</div>
-                            <div className="col-span-1 bg-blue-100 p-1">优秀</div>
-                            <div className="col-span-1 bg-blue-100 p-1">良好</div>
-                            <div className="col-span-1 bg-blue-100 p-1">一般</div>
-                            {[1,2,3,4].map(i => (<React.Fragment key={i}><div className="border-b border-blue-200 p-1">内容</div><div className="border-b border-blue-200 p-1">-</div><div className="border-b border-blue-200 p-1">-</div><div className="border-b border-blue-200 p-1">-</div></React.Fragment>))}
+                            <div className="col-span-1 bg-blue-100 p-1">Criteria</div>
+                            <div className="col-span-1 bg-blue-100 p-1">Excellent</div>
+                            <div className="col-span-1 bg-blue-100 p-1">Good</div>
+                            <div className="col-span-1 bg-blue-100 p-1">Average</div>
+                            {[1,2,3,4].map(i => (<React.Fragment key={i}><div className="border-b border-blue-200 p-1">Content</div><div className="border-b border-blue-200 p-1">-</div><div className="border-b border-blue-200 p-1">-</div><div className="border-b border-blue-200 p-1">-</div></React.Fragment>))}
                         </div>
                     </div>
                 </div>
-                <SpeechBubble text="可以根据具体文案类型灵活调整评分重点，例如应用文注重格式，议论文注重逻辑展开" style={{ top: '-5px', left: '420px', width: '180px' }} />
-                <div className="absolute top-80 left-100 bg-green-200 rounded-full w-20 h-20 flex items-center justify-center text-center text-[10px] shadow-sm z-10" style={{ top: '120px', left: '260px' }}>Martin<br/>is<br/>ready</div>
+                <SpeechBubble text="Adjust grading focus flexibly based on text type, e.g., format for practical writing, logic for essays." style={{ top: '60px', left: '420px', width: '180px' }} />
+                <div className="absolute top-80 left-100 bg-green-200 rounded-full w-20 h-20 flex items-center justify-center text-center text-[10px] shadow-sm z-10" style={{ top: '120px', left: '260px' }}>Martin<br/>is<br/>handsome</div>
 
                 <div className="absolute top-[350px] left-[280px] w-[200px] h-[400px] bg-white border border-gray-200 shadow-md p-3 rounded-md">
-                     <h3 className="text-gray-600 mb-3 text-sm font-medium">作业区</h3>
+                     <h3 className="text-gray-600 mb-3 text-sm font-medium">Homework Area</h3>
                      <div className="space-y-2">
-                        <div className="flex gap-2"><div className="w-6 h-6 bg-blue-100 text-blue-500 text-[10px] flex items-center justify-center rounded">项目</div><div className="flex-1 h-6 bg-gray-50 border border-dashed border-gray-300 rounded"></div></div>
-                         <div className="flex gap-2"><div className="w-6 h-6 bg-blue-100 text-blue-500 text-[10px] flex items-center justify-center rounded">学生<br/>作业</div><div className="flex flex-col gap-2"><div className="w-24 h-16 bg-gray-200 rounded overflow-hidden relative"><div className="absolute inset-0 flex items-center justify-center text-[8px] text-gray-400">Image 1</div></div><div className="w-24 h-16 bg-gray-200 rounded overflow-hidden relative"><div className="absolute inset-0 flex items-center justify-center text-[8px] text-gray-400">Image 2</div></div></div></div>
+                        <div className="flex gap-2"><div className="w-8 h-6 bg-blue-100 text-blue-500 text-[10px] flex items-center justify-center rounded">Item</div><div className="flex-1 h-6 bg-gray-50 border border-dashed border-gray-300 rounded"></div></div>
+                         <div className="flex gap-2"><div className="w-8 h-8 bg-blue-100 text-blue-500 text-[10px] flex items-center text-center justify-center rounded leading-tight">Student<br/>Work</div><div className="flex flex-col gap-2"><div className="w-24 h-16 bg-gray-200 rounded overflow-hidden relative"><div className="absolute inset-0 flex items-center justify-center text-[8px] text-gray-400">Image 1</div></div><div className="w-24 h-16 bg-gray-200 rounded overflow-hidden relative"><div className="absolute inset-0 flex items-center justify-center text-[8px] text-gray-400">Image 2</div></div></div></div>
                      </div>
-                     <StickyNoteElement text="如果学生作业较多，也可以批量上传后台批量处理" author="Martin" color="bg-yellow-100" style={{ bottom: '40px', right: '-40px' }} />
-                     <SpeechBubble text="这里可以链接云端文件夹" style={{ top: '-10px', right: '-60px' }} tailPosition="left" />
+                     <StickyNoteElement text="If there is a lot of homework, batch upload and processing is available." author="Martin" color="bg-yellow-100" style={{ bottom: '40px', right: '-40px' }} />
+                     <SpeechBubble text="Link cloud folder here" style={{ top: '-10px', right: '-60px' }} tailPosition="left" />
                 </div>
 
-                <WorkflowCard title="作业点评" number="1" headerColor="bg-blue-50" className="w-[280px] h-[320px]" style={{ top: '250px', left: '600px', zIndex: 10 }} content={
-                        <div className="space-y-2"><p>你是一位资深高中英语教师，请根据图片中的作文题目和两位学生的作文内容，自动识别并完成以下任务：</p><ol className="list-decimal pl-4 space-y-1 text-gray-500"><li>按照中国高中英语作文评分标准分别给出每位学生的分项得分和总分；</li><li>给出清晰点评，指出优点与不足；</li><li>用鼓励性语言给出的一句评语；</li></ol><p className="mt-2 text-gray-400 italic">请从图片中提取题目和学生作业内容后再进行...</p></div>
+                <WorkflowCard title="Homework Review" number="1" headerColor="bg-blue-50" className="w-[300px] h-[330px]" style={{ top: '250px', left: '600px', zIndex: 10 }} content={
+                        <div className="space-y-2"><p>You are a senior high school English teacher. Please automatically recognize and complete the following tasks based on the image:</p><ol className="list-decimal pl-4 space-y-1 text-gray-500"><li>Score each student item-by-item and give a total score based on standard criteria;</li><li>Provide clear feedback, pointing out strengths and weaknesses;</li><li>Give an encouraging summary comment;</li></ol><p className="mt-2 text-gray-400 italic">Please extract the prompt and content from the image before proceeding...</p></div>
                     } />
-                 <div className="absolute bg-[#C8F08F] shadow-md p-3 rounded-sm transform -rotate-2 z-20 text-center flex flex-col items-center justify-center" style={{ top: '150px', left: '620px', width: '160px', height: '90px' }}><p className="text-gray-800 font-bold text-xs leading-tight">老师可修改<br/>系统提示词，<br/>自定义打分风<br/>格或输出格式</p><span className="text-[8px] mt-1 text-gray-600">Martin 提交者</span></div>
-                <div className="absolute bg-[#C8F08F] shadow-md p-2 rounded-sm z-20" style={{ top: '440px', left: '850px', width: '100px' }}><p className="text-[9px] text-gray-800 leading-tight">AI插件可以调用外部应用进行处理/搜索（如查重/查词）</p></div>
-                <SpeechBubble text="点击运行" style={{ top: '220px', left: '825px' }} />
+                 <div className="absolute bg-[#C8F08F] shadow-md p-3 rounded-sm transform -rotate-2 z-20 text-center flex flex-col items-center justify-center" style={{ top: '150px', left: '620px', width: '160px', height: '90px' }}><p className="text-gray-800 font-bold text-xs leading-tight">Teachers can modify system prompts to customize grading style.</p><span className="text-[8px] mt-1 text-gray-600">Martin Submitter</span></div>
+                <div className="absolute bg-[#C8F08F] shadow-md p-2 rounded-sm z-20" style={{ top: '440px', left: '850px', width: '120px' }}><p className="text-[9px] text-gray-800 leading-tight">AI plugins can call external apps (e.g., plagiarism check)</p></div>
+                <SpeechBubble text="Click to Run" style={{ top: '220px', left: '840px' }} />
 
                 <div className="absolute" style={{ top: '200px', left: '950px' }}>
-                    <h3 className="text-gray-500 mb-2 ml-2 text-sm">作业分析</h3>
-                    <DocCard title="作业分析结果"><p><strong>学生1：</strong></p><p>The essay on public transportation safety...</p><br/><p><strong>学生2：</strong></p><p>Regarding the school sports meet...</p></DocCard>
-                    <SpeechBubble text="生成结果后，还可以继续添加其他内容" style={{ top: '-30px', left: '100px' , width: '180px' }} />
+                    <h3 className="text-gray-500 mb-2 ml-2 text-sm">Homework Analysis</h3>
+                    <DocCard title="Analysis Results"><p><strong>Student 1:</strong></p><p>The essay on public transportation safety...</p><br/><p><strong>Student 2:</strong></p><p>Regarding the school sports meet...</p></DocCard>
+                    <SpeechBubble text="After generating results, you can continue adding other content." style={{ top: '-10px', left: '20px' }} />
                 </div>
 
-                <WorkflowCard title="写作指导 & 提升指南" number="2" headerColor="bg-blue-50" className="w-[280px] h-[300px]" style={{ top: '680px', left: '600px', zIndex: 10 }} content={
-                        <div className="space-y-2"><p>请根据以下信息，生成一份英语作文的进阶训练建议，面向高中生。输出格式如下：</p><p>【学生姓名】：（请提取或填写）</p><p>【作文类型】：（如应用文/说明文/议论文）</p><p>【训练方向】：<br/><span className="text-gray-400">列出2个建议重点练习的方向，综合语法点或表达技巧。</span></p></div>
+                <WorkflowCard title="Writing & Improvement Guide" number="2" headerColor="bg-blue-50" className="w-[300px] h-[300px]" style={{ top: '680px', left: '600px', zIndex: 10 }} content={
+                        <div className="space-y-2"><p>Please generate advanced training suggestions based on the info. Output format:</p><p>[Student Name]: (Extract or fill in)</p><p>[Essay Type]: (e.g., Practical/Expository)</p><p>[Training Direction]:<br/><span className="text-gray-400">List 2 recommended focus areas integrating grammar or expression skills.</span></p></div>
                     } />
 
                 <div className="absolute" style={{ top: '650px', left: '950px' }}>
-                     <h3 className="text-gray-500 mb-2 ml-2 text-sm">学生写作提升指南</h3>
-                    <DocCard title="学生写作提升指南"><p><strong>学生1：</strong></p><p>【评分结果】：21分（良好）</p><p>【问题简述】：语法准确性较好，但词汇多样性略显不足。</p><br/><p><strong>学生2：</strong></p><p>【评分结果】：18分（一般）</p><p>【训练方向】：1. 强化单词掌握... 2. 学习标准段落结构...</p></DocCard>
-                     <SpeechBubble text="可以根据原始作文薄弱项生成专属训练建议" style={{ top: '-30px', left: '120px', width: '180px' }} />
+                     <h3 className="text-gray-500 mb-2 ml-2 text-sm">Student Improvement Guide</h3>
+                    <DocCard title="Improvement Suggestions"><p><strong>Student 1:</strong></p><p>[Score]: 21 (Good)</p><p>[Issue]: Good grammatical accuracy, slightly lacking in vocabulary diversity.</p><br/><p><strong>Student 2:</strong></p><p>[Score]: 18 (Average)</p><p>[Direction]: 1. Strengthen spelling... 2. Learn standard paragraph structure...</p></DocCard>
+                     <SpeechBubble text="Generate exclusive training suggestions based on weaknesses." style={{ top: '-40px', left: '60px', width: '180px' }} />
                 </div>
             </>
         );
 
-        // --- CONTENT 2: SIMPLE COMPONENT DRAFT (NEW CANVAS) ---
         const DraftContent = () => (
             <>
-                {/* Placeholder Area */}
                 <div className="absolute top-[100px] left-[400px] w-[250px] h-[150px] border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center text-gray-400">
                     <LayoutGrid size={24} className="mb-2 opacity-50"/>
-                    <span className="text-xs">Drag components here</span>
+                    <span className="text-xs">Drag and drop components here</span>
                 </div>
             </>
         );
-
 
         // ==========================================
         // 3. EDITOR WRAPPER
         // ==========================================
         const Editor = ({ onBack, fileName }) => {
             const [zoom, setZoom] = useState(0.9);
-            
-            // Core Status：Control AI Panel Acts
             const [isAIPanelOpen, setIsAIPanelOpen] = useState(false);
 
             const handleZoomIn = () => setZoom(prev => Math.min(prev + 0.1, 2.0));
             const handleZoomOut = () => setZoom(prev => Math.max(prev - 0.1, 0.2));
             const resetZoom = () => setZoom(0.9);
 
-            const isWorkflow = fileName === 'Marking Assignments Workflow';
+            const isWorkflow = fileName === 'Example: Marking Assignments Workflow';
 
             return (
                 <div className="flex flex-col h-screen w-full bg-[#F4F4F4] overflow-hidden font-sans text-slate-800 relative">
@@ -488,9 +486,9 @@
                         <ChevronLeft size={20} className="text-gray-600" />
                     </div>
                     <div className="flex items-center gap-2">
-                        <h1 className="font-bold text-gray-800 text-sm md:text-base">{fileName || 'Untitled Canvas'}</h1>
+                        <h1 className="font-bold text-gray-800 text-sm md:text-base">{fileName || 'Untitled Board'}</h1>
                         <Star size={16} className="text-blue-500 fill-blue-500" />
-                        <span className="bg-gray-100 text-gray-500 text-[10px] px-1.5 py-0.5 rounded border border-gray-200">Free tier</span>
+                        <span className="bg-gray-100 text-gray-500 text-[10px] px-1.5 py-0.5 rounded border border-gray-200">Premium</span>
                     </div>
                     </div>
                     <div className="flex items-center gap-2">
@@ -506,8 +504,8 @@
                 </div>
 
                 <div className="flex flex-1 relative overflow-hidden">
-                    {/*  Leftside Toolbar */}
-                    <div className="w-14 bg-white border-r border-gray-200 flex flex-col items-center py-4 gap-1 z-40 shadow-[2px_0_5px_rgba(0,0,0,0.02)]">
+                    {/* Left Toolbar */}
+                    <div className="w-14 bg-white border-r border-gray-200 flex flex-col items-center py-4 gap-1 z-40 shadow-[2px_0_5px_rgba(0,0,0,0.02)] relative">
                         <div className="bg-blue-50 p-1.5 rounded-md mb-2 cursor-pointer"><MousePointer2 size={20} className="text-blue-600 fill-blue-600" /></div>
                         
                         <ToolItem icon={LayoutGrid} />
@@ -515,7 +513,7 @@
                         <ToolItem icon={Type} />
                         <ToolItem icon={Network} />
                         
-                        {/* Trigger 1：Leftside AI Icon */}
+                        {/* AI Trigger in Toolbar */}
                         <ToolItem 
                             icon={BrainCircuit} 
                             color={isAIPanelOpen ? "text-purple-600" : "text-purple-400 hover:text-purple-600"} 
@@ -526,9 +524,7 @@
                         <div className="mt-auto flex flex-col gap-2 mb-4"><ToolItem icon={Undo2} /><ToolItem icon={Redo2} /></div>
                     </div>
 
-                    {/* New Added AI Panel Compoments 
-                        Same Layer as Canvas, slip from leftside
-                    */}
+                    {/* Sliding AI Panel */}
                     <AIAgentPanel isOpen={isAIPanelOpen} onClose={() => setIsAIPanelOpen(false)} />
 
                     {/* Canvas Area */}
@@ -540,10 +536,10 @@
                     </div>
                 </div>
                 
-                {/*  Bottom AI Icon  */}
+                {/* Bottom Zoom & AI Controls */}
                 <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex items-center gap-3 z-50">
                     
-                    {/* 🌟 Trigger 2：Bottom AI Icon 🌟 */}
+                    {/* AI Trigger in Floating Bar */}
                     <div className="bg-white rounded-lg shadow-lg border border-gray-200 p-1 flex items-center">
                         <button 
                             onClick={() => setIsAIPanelOpen(!isAIPanelOpen)} 
@@ -561,7 +557,7 @@
                         <span className="text-sm font-medium text-gray-700 w-12 text-center select-none">{Math.round(zoom * 100)}%</span>
                         <button onClick={handleZoomIn} className="p-2 hover:bg-gray-100 rounded text-gray-600 active:bg-gray-200 transition-colors"><Plus size={16} /></button>
                         <div className="h-6 w-px bg-gray-200 mx-1"></div>
-                        <button onClick={resetZoom} className="p-2 hover:bg-gray-100 rounded text-gray-600" title="Reset"><Maximize size={16} /></button>
+                        <button onClick={resetZoom} className="p-2 hover:bg-gray-100 rounded text-gray-600" title="Reset Zoom"><Maximize size={16} /></button>
                         <button className="p-2 hover:bg-gray-100 rounded text-gray-600 bg-gray-800 text-white rounded-full w-8 h-8 flex items-center justify-center"><HelpCircle size={16} /></button>
                     </div>
                 </div>
